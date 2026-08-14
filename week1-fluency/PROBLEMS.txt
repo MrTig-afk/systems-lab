@@ -1,0 +1,58 @@
+WEEK 1 — BLANK-FILE FLUENCY
+===========================
+
+Rule: write your own attempt first and paste it into the chat before I show you anything.
+No reference solution exists before yours does.
+
+-------------------------------------------------------------------------------
+PROBLEM 1
+-------------------------------------------------------------------------------
+
+Write a function `add_tax(price, rate)` that returns price including tax.
+
+STATUS: done, confirmed working.
+
+-------------------------------------------------------------------------------
+PROBLEM 2
+-------------------------------------------------------------------------------
+
+Write a function `total_cart(cart)` that takes a dictionary mapping item names
+(strings) to prices (numbers) — e.g. {"apple": 1.5, "bread": 3.0} — and returns
+the sum of all the prices in the cart.
+
+Add it below add_tax in the same file (or a new one, your call). Call it with
+your own example dictionary, print() the result, run the file, and paste back
+your code and what printed.
+
+STATUS: done, confirmed working (4.5).
+
+-------------------------------------------------------------------------------
+PROBLEM 3
+-------------------------------------------------------------------------------
+
+Write a function `safe_divide(a, b)` that returns a divided by b.
+
+The catch: if b is 0, dividing normally crashes Python. Instead of letting it
+crash, catch that specific error with try/except and return None instead.
+
+First, without any try/except, just write `return a / b` and run
+safe_divide(10, 0) on purpose — watch it crash and read the traceback. THEN add
+the try/except around it so it returns None instead of crashing. Paste both:
+the crash, and the fixed version's output.
+
+STATUS: skipped for now — will come up naturally inside Project 1 instead.
+
+-------------------------------------------------------------------------------
+PROBLEM 4 (last one before Project 1)
+-------------------------------------------------------------------------------
+
+Write a function `count_words(words)` that takes a list of strings (words,
+possibly with repeats — e.g. ["cat", "dog", "cat", "cat"]) and returns a
+dictionary mapping each word to how many times it appeared.
+
+Expected: count_words(["cat", "dog", "cat", "cat"]) -> {"cat": 3, "dog": 1}
+
+Use dict.get(key, 0) inside your loop to read-and-update each word's count —
+this is the exact "read current value, add 1, write it back" pattern a rate
+limiter uses to count requests per client. Call it with your own example list,
+print() the result, run it, and paste your code + output.

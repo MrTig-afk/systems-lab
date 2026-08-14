@@ -1,0 +1,60 @@
+PROJECT 1 — RATE LIMITER (Week 2-3)
+====================================
+
+STAGE 1: fixed-window counter, plain Python, no framework yet.
+
+What a rate limiter does: caps how many requests one caller can make within a
+time window. Once they're over the cap, further requests in that window get
+rejected until the window resets. It exists for three reasons: survival
+(traffic that would flatten a database), fairness (one heavy user shouldn't
+starve everyone else), and cost (every request can be real money).
+
+-------------------------------------------------------------------------------
+BUILD THIS
+-------------------------------------------------------------------------------
+
+A function, roughly shaped like:
+
+    is_allowed(client_id, now, state, limit=5, window_seconds=60)
+
+- client_id: a string identifying who's making the request (e.g. "user_42")
+- now: a number — the current time in seconds. This is NOT read from a real
+  clock inside your function. It's always passed in by whoever calls the
+  function.
+- state: a dictionary you use to remember, across repeated calls, how many
+  requests each client has made and when their current window started. You
+  design its internal shape yourself.
+- limit: max requests allowed per window (default 5)
+- window_seconds: length of one window, in seconds (default 60)
+
+Returns True if this request should be allowed, False if the client has
+exceeded their limit for the current window.
+
+-------------------------------------------------------------------------------
+THE ONE HARD RULE
+-------------------------------------------------------------------------------
+
+Do NOT call time.time() (or any real clock) anywhere inside is_allowed. The
+"current time" must always arrive as the `now` argument.
+
+Why: a function that reads the real clock itself is impossible to test on
+demand — you can't control what "now" is, and you can't simulate crossing a
+window boundary without literally sleeping in real time during a test. Passing
+the clock in as an argument makes the function pure (same inputs -> same
+output, always) and instantly testable.
+
+-------------------------------------------------------------------------------
+HOW TO PROVE IT WORKS (by hand, no pytest yet)
+-------------------------------------------------------------------------------
+
+Call is_allowed with the same client_id, limit=3, and the same `now` value,
+five times in a row, printing the result each time. Expected sequence:
+
+    True, True, True, False, False
+
+Then call it again with `now` moved forward past window_seconds (e.g. now +
+70 if window_seconds=60) — it should go back to True, because you're in a new
+window.
+
+Paste your code and all the printed results once you've got something
+running. Write your own attempt first, as always.
