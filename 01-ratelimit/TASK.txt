@@ -14,8 +14,7 @@ BUILD THIS
 -------------------------------------------------------------------------------
 
 A function, roughly shaped like:
-
-    is_allowed(client_id, now, state, limit=5, window_seconds=60)
+is_allowed(client_id, now, state, limit=5, window_seconds=60)
 
 - client_id: a string identifying who's making the request (e.g. "user_42")
 - now: a number — the current time in seconds. This is NOT read from a real
@@ -26,9 +25,12 @@ A function, roughly shaped like:
   design its internal shape yourself.
 - limit: max requests allowed per window (default 5)
 - window_seconds: length of one window, in seconds (default 60)
-
+ 
 Returns True if this request should be allowed, False if the client has
 exceeded their limit for the current window.
+
+  
+    
 
 -------------------------------------------------------------------------------
 THE ONE HARD RULE
@@ -58,3 +60,21 @@ window.
 
 Paste your code and all the printed results once you've got something
 running. Write your own attempt first, as always.
+
+
+
+current_window= now // window_seconds
+look for the client record in state ( if exits great move to next step, if not then give default count:0 and window= current_window)
+ for the if exist (state.get thingy)
+
+if record_user.window == current_window # regardless user is created, so we check for window, if current_window is same as that of record_window 
+# check if count < limit 
+  record.count < limit:
+    recourd.count+=1
+  else:
+    Fail
+else:
+  # basically in new window
+  record.window = current_window
+  record.count= 1 #
+  # basically we change the window stored in state and change count to 1 if the current_window is not same as state_window
